@@ -1,130 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#102820">
-  <meta name="description" content="Book trusted home, appliance and vehicle services at your convenience.">
-  <title>ClickFix — One Click. All Fixes.</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ClickFix connects you with trusted home repair and maintenance professionals.">
+  <title>ClickFix | One Click. All Fixes.</title><link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="announcement"><span class="sparkle">✦</span> Your problems. Our solution. One click. <span class="announcement-right">Simple booking · Trusted professionals</span></div>
-  <header class="site-header">
-    <a class="brand" href="#" aria-label="ClickFix home"><img src="logo.png.jpeg"alt="ClickFix Logo" class="brand-mark"><span>clickfix<span class="brand-dot">.</span></span></a>
-    <nav class="desktop-nav" aria-label="Main navigation">
-      <a href="#services">Services</a><a href="#how-it-works">How it works</a><a href="#why-clickfix">Why ClickFix</a>
-    </nav>
-    <div class="header-actions">
-      <button class="text-button" id="myBookingsBtn" type="button">My bookings <span class="booking-count" id="bookingCount">0</span></button>
-      <a class="button button-dark header-cta" href="#services">Book a service <span>↗</span></a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
-    </div>
-  </header>
-  <nav class="mobile-nav" id="mobileNav"><a href="#services">Services</a><a href="#how-it-works">How it works</a><a href="#why-clickfix">Why ClickFix</a><button id="mobileBookingsBtn">My bookings</button></nav>
-
-  <main>
-    <section class="hero">
-      <div class="hero-copy">
-        <div class="eyebrow"><span class="eyebrow-dot"></span> ONE CLICK. ALL FIXES.</div>
-        <h1>Life gets busy.<br><span>We fix the little</span><br>things that matter.</h1>
-        <p class="hero-description">From a warm AC to a stubborn car, find skilled professionals for the jobs that keep your day moving.</p>
-        <form class="search-bar" id="searchForm">
-          <span class="search-icon">⌕</span>
-          <input id="heroSearch" type="search" placeholder="What do you need help with?" aria-label="Search services">
-          <button class="button button-lime" type="submit">Find a service <span>→</span></button>
+  <section id="authScreen" class="auth-screen">
+    <div class="auth-brand"><img class="uploaded-logo auth-logo" src="logo.png.jpeg" alt="ClickFix logo" onerror="this.style.display='none'"><div class="brand-icon fallback-icon">C<span>F</span></div><div><b>clickfix<span class="dot">.</span></b><small>ONE CLICK. ALL FIXES.</small></div></div>
+    <div class="auth-layout">
+      <div class="auth-promo"><span class="eyebrow">YOUR HOME, IN GOOD HANDS</span><h1>Repairs made easy.<br><em>Life made simpler.</em></h1><p>Book trusted professionals for the little things and the big fixes around your home.</p>
+        <div class="promo-points"><div><span>✓</span> Skilled service professionals</div><div><span>✓</span> Convenient booking</div><div><span>✓</span> Services at your fingertips</div></div>
+        <div class="promo-art"><div class="art-circle">🔧</div><div class="art-card"><b>Need a quick fix?</b><small>Your trusted help is a tap away.</small></div></div>
+      </div>
+      <div class="auth-card">
+        <div class="role-tabs"><button class="role-tab active" data-role="customer">I'm a Customer</button><button class="role-tab" data-role="worker">I'm a Worker</button></div>
+        <div id="authHeading"><h2>Welcome back</h2><p>Sign in to continue to ClickFix.</p></div>
+        <div class="form-switch"><button class="mode active" data-mode="login">Login</button><button class="mode" data-mode="signup">Sign up</button></div>
+        <form id="authForm">
+          <label id="nameWrap" class="hidden">Full name<input id="fullName" type="text" placeholder="Enter your full name"></label>
+          <label>Email address<input id="email" type="email" placeholder="you@example.com" required></label>
+          <label id="phoneWrap" class="hidden">Mobile number<input id="phone" type="tel" placeholder="10-digit mobile number"></label>
+          <label>Password<input id="password" type="password" placeholder="At least 6 characters" minlength="6" required></label>
+          <label id="skillWrap" class="hidden">Your main skill<select id="skill"><option>Electrician</option><option>Plumber</option><option>AC technician</option><option>Appliance repair</option><option>Cleaning professional</option><option>Carpenter</option><option>Other</option></select></label>
+          <button class="primary-btn full" type="submit" id="submitAuth">Login securely <span>→</span></button>
         </form>
-        <div class="hero-trust"><div class="avatar-stack"><span>R</span><span>M</span><span>A</span><span>+</span></div><div><strong>One place for everyday fixes</strong><small>Home · Electronics · Vehicle care</small></div></div>
+        <p class="demo-note">Demo experience: use any valid email and a password with 6+ characters.</p>
+        <p class="auth-terms">By continuing, you agree to our <a href="#" data-info="Terms">Terms</a> and <a href="#" data-info="Privacy">Privacy Policy</a>.</p>
       </div>
-      <div class="hero-art">
-        <div class="hero-image-wrap">
-          <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1100&q=85" alt="Professional technician working on a home appliance">
-          <div class="image-shade"></div>
-          <div class="floating-card card-top"><span class="floating-icon green">✓</span><div><strong>Skilled professionals</strong><small>Help when you need it</small></div></div>
-          <div class="floating-card card-bottom"><div class="mini-stars">★★★★★ <b>4.8</b></div><strong>Service you can feel good about</strong><small>Quality starts with the right people.</small></div>
-          <div class="hero-sticker"><span>GOOD<br>AS NEW</span><span class="sticker-arrow">↗</span></div>
-        </div>
-        <div class="hero-art-caption"><span>01 / EVERYDAY ESSENTIALS</span><span>MADE EASIER</span></div>
-      </div>
-      <div class="hero-orb orb-one"></div><div class="hero-orb orb-two"></div>
-    </section>
-
-    <section class="trust-strip" aria-label="Service highlights">
-      <div><span class="strip-icon">✳</span><span><strong>One easy booking</strong><small>For all kinds of jobs</small></span></div>
-      <div><span class="strip-icon">⌁</span><span><strong>Flexible scheduling</strong><small>Pick a convenient time</small></span></div>
-      <div><span class="strip-icon">♡</span><span><strong>People-first service</strong><small>Clear details, no confusion</small></span></div>
-      <div><span class="strip-icon">↗</span><span><strong>From home to garage</strong><small>More help, one place</small></span></div>
-    </section>
-
-    <section class="services-section section-pad" id="services">
-      <div class="section-heading">
-        <div><div class="eyebrow">WHAT CAN WE HELP WITH?</div><h2>Good help is <span>closer than you think.</span></h2><p>Choose a service to get started. More solutions, fewer to-do lists.</p></div>
-        <div class="section-counter"><strong id="visibleCount">12</strong><span>service categories<br>and counting</span></div>
-      </div>
-      <div class="category-row" id="categoryFilters" aria-label="Filter services">
-        <button class="category-chip active" data-category="All">✦ All services</button>
-        <button class="category-chip" data-category="Home">⌂ Home</button>
-        <button class="category-chip" data-category="Appliances">▣ Appliances</button>
-        <button class="category-chip" data-category="Vehicle">↗ Vehicle care</button>
-        <button class="category-chip" data-category="Cleaning">✧ Cleaning</button>
-        <button class="category-chip" data-category="Other">＋ More services</button>
-      </div>
-      <div class="service-grid" id="serviceGrid"></div>
-      <div class="no-results hidden" id="noResults"><span>⌕</span><h3>No exact match yet</h3><p>Try another keyword or browse all services.</p><button class="button button-dark" id="showAllBtn">Show all services</button></div>
-      <div class="center-action"><button class="button button-outline" id="showMoreBtn">Explore all services <span>↓</span></button></div>
-    </section>
-
-    <section class="feature-band" id="how-it-works">
-      <div class="feature-copy"><div class="eyebrow eyebrow-light">A BETTER WAY TO GET THINGS DONE</div><h2>Your to-do list.<br><span>Meet its match.</span></h2><p>No chasing contacts or juggling different apps. Find a service, share what you need, and request a time that works for you.</p><a class="button button-lime" href="#services">Find your service <span>↗</span></a></div>
-      <div class="steps">
-        <article class="step"><div class="step-number">01</div><div class="step-icon">⌕</div><div><h3>Find your fix</h3><p>Browse categories or search for the exact job you need done.</p></div><span class="step-arrow">↗</span></article>
-        <article class="step"><div class="step-number">02</div><div class="step-icon">▤</div><div><h3>Tell us the details</h3><p>Choose a service, preferred date and time, and add a short note.</p></div><span class="step-arrow">↗</span></article>
-        <article class="step"><div class="step-number">03</div><div class="step-icon">✓</div><div><h3>Request your booking</h3><p>Review your request and keep track of it in My bookings.</p></div><span class="step-arrow">↗</span></article>
-      </div>
-      <div class="band-decoration">FIX<br>IT.</div>
-    </section>
-
-    <section class="why-section section-pad" id="why-clickfix">
-      <div class="why-intro"><div class="eyebrow">WHY FIXORA?</div><h2>Less hassle.<br><span>More living.</span></h2><p>Small problems shouldn't take up your whole day. We're building a simpler way to find the help you need.</p></div>
-      <div class="why-cards">
-        <article class="why-card"><span class="why-icon">◎</span><h3>Everything in one place</h3><p>Home repairs, appliances, cleaning and vehicle care in one convenient directory.</p></article>
-        <article class="why-card"><span class="why-icon">◷</span><h3>Your time matters</h3><p>Share your preferred date and time instead of starting from scratch every time.</p></article>
-        <article class="why-card"><span class="why-icon">♡</span><h3>Clear from the start</h3><p>See service descriptions and indicative starting prices before you request a booking.</p></article>
-      </div>
-    </section>
-
-    <section class="cta-section">
-      <div class="cta-shape">✳</div><div><div class="eyebrow eyebrow-light">YOUR NEXT FIX STARTS HERE</div><h2>One less thing<br>to worry about.</h2><p>Find the right service for your next to-do.</p></div><a class="button button-lime" href="#services">Browse services <span>↗</span></a>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="footer-main"><a class="brand brand-light" href="#"><span class="brand-mark">f<span>+</span></span><span>clickfix<span class="brand-dot">.</span></span></a><p>One Click. All Fixes.<br>More time for what matters to you.</p><div class="footer-social"><span>in</span><span>ig</span><span>f</span></div></div>
-    <div class="footer-links"><div><strong>Explore</strong><a href="#services">All services</a><a href="#how-it-works">How it works</a><a href="#why-clickfix">Why ClickFix</a></div><div><strong>Popular services</strong><a href="#services" data-jump="AC repair">AC repair</a><a href="#services" data-jump="Electrician">Electrician</a><a href="#services" data-jump="Car repair">Car repair</a></div><div><strong>Get in touch</strong><a href="mailto:hello@clickfix.example">hello@clickfix.example</a><span>Support hours: 9 AM – 6 PM</span><small>Replace these demo contact details before launch.</small></div></div>
-    <div class="footer-bottom"><span>© <span id="year"></span> ClickFix. Demo website concept.</span><span>Made for everyday life <b>✳</b></span></div>
-  </footer>
-
-  <div class="modal-backdrop hidden" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal">
-      <button class="modal-close" id="closeModal" aria-label="Close booking form">×</button>
-      <div class="modal-kicker">LET'S GET IT SORTED</div><h2 id="modalTitle">Book a service</h2><p class="modal-subtitle">Tell us a little about the job. This demo saves requests in this browser only.</p>
-      <form id="bookingForm">
-        <div class="selected-service" id="selectedServiceBox"><span>✳</span><div><strong id="selectedServiceName">Service name</strong><small id="selectedServicePrice">Starting price varies</small></div></div>
-        <label for="customerName">Your name</label><input id="customerName" name="customerName" placeholder="Enter your full name" required>
-        <div class="form-two"><div><label for="customerPhone">Phone number</label><input id="customerPhone" name="customerPhone" type="tel" inputmode="numeric" pattern="[0-9+\s()-]{8,16}" placeholder="Your contact number" required></div><div><label for="serviceDate">Preferred date</label><input id="serviceDate" name="serviceDate" type="date" required></div></div>
-        <label for="serviceTime">Preferred time</label><select id="serviceTime" name="serviceTime" required><option value="">Choose a time</option><option>9 AM – 12 PM</option><option>12 PM – 3 PM</option><option>3 PM – 6 PM</option><option>6 PM – 8 PM</option></select>
-        <label for="customerAddress">Service address</label><input id="customerAddress" name="customerAddress" placeholder="House / street / area / city" required>
-        <label for="jobNotes">Tell us about the issue <span class="optional">(optional)</span></label><textarea id="jobNotes" name="jobNotes" rows="3" placeholder="Example: AC is running but not cooling..."></textarea>
-        <div class="form-note">Demo only: no professional will be dispatched and no payment is collected.</div>
-        <button class="button button-dark full-width" type="submit">Submit booking request <span>→</span></button>
-      </form>
     </div>
-  </div>
+    <footer class="auth-footer">© 2026 ClickFix · Reliable help, right when you need it.</footer>
+  </section>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div id="appScreen" class="app-screen hidden">
+    <header class="topbar"><div class="location"><span class="pin">⌖</span><div><small>YOUR LOCATION</small><button id="locationBtn">Choose your area <span>⌄</span></button></div></div>
+      <div class="top-actions"><button class="icon-btn" id="settingsBtn" aria-label="Settings" title="Settings">⚙</button><div class="brand-mini"><img class="uploaded-logo mini-logo" src="logo.png.jpeg" alt="ClickFix logo" onerror="this.style.display='none'"><div class="brand-icon small fallback-icon">C<span>F</span></div><b>clickfix<span class="dot">.</span></b></div></div>
+    </header>
+    <main class="page-content">
+      <section class="welcome"><div><span class="eyebrow">WELCOME TO CLICKFIX</span><h1 id="welcomeTitle">What can we fix for you?</h1><p>Book trusted professionals for your everyday needs.</p></div><div class="welcome-badge">🛠️</div></section>
+      <div class="searchbar"><span>⌕</span><input id="serviceSearch" type="search" placeholder="Search for a service..."><button id="searchBtn">Search</button></div>
+      <section class="hero-banner"><div><span class="banner-label">QUICK. SIMPLE. RELIABLE.</span><h2>Your home deserves<br>the best care.</h2><p>Professional help, just a few taps away.</p><button class="light-btn" data-scroll="services">Explore services <span>→</span></button></div><div class="banner-illustration">🏡<span>✨</span></div></section>
+      <section id="services" class="section-block"><div class="section-heading"><div><span class="eyebrow">WHAT DO YOU NEED?</span><h2>Popular services</h2></div><button class="text-btn" id="viewAllBtn">View all <span>→</span></button></div>
+        <div class="category-grid" id="categoryGrid">
+          <button class="category-card" data-service="AC Repair"><span class="category-icon lavender">❄️</span><b>AC repair</b><small>Cooling & service</small></button>
+          <button class="category-card" data-service="Electrician"><span class="category-icon yellow">💡</span><b>Electrician</b><small>Wiring & fittings</small></button>
+          <button class="category-card" data-service="Plumbing"><span class="category-icon blue">🚿</span><b>Plumbing</b><small>Leaks & repairs</small></button>
+          <button class="category-card" data-service="Appliance Repair"><span class="category-icon pink">🧺</span><b>Appliance repair</b><small>Fridge, TV & more</small></button>
+          <button class="category-card" data-service="Cleaning"><span class="category-icon green">🧹</span><b>Home cleaning</b><small>Freshen your space</small></button>
+          <button class="category-card" data-service="Carpentry"><span class="category-icon orange">🪚</span><b>Carpentry</b><small>Furniture & fittings</small></button>
+          <button class="category-card" data-service="Vehicle Repair"><span class="category-icon blue">🛵</span><b>Vehicle repair</b><small>Quick roadside help</small></button>
+          <button class="category-card" data-service="Painting"><span class="category-icon pink">🖌️</span><b>Painting</b><small>Walls & touch-ups</small></button>
+        </div>
+      </section>
+      <section class="section-block why-block"><div><span class="eyebrow">THE CLICKFIX PROMISE</span><h2>Help you can count on.</h2><p>Find the right service for your home and everyday life.</p></div><div class="promise-list"><div><span>✓</span><div><b>Simple booking</b><small>Request a service in minutes</small></div></div><div><span>♧</span><div><b>Local professionals</b><small>Find help for your needs</small></div></div><div><span>♡</span><div><b>Support when needed</b><small>Keep your service details together</small></div></div></div></section>
+      <section id="cartPage" class="section-block hidden"><div class="section-heading"><div><span class="eyebrow">YOUR SELECTION</span><h2>My cart</h2></div></div><div id="cartItems" class="empty-state">Your cart is empty. Add a service to get started.</div></section>
+      <section id="profilePage" class="section-block hidden"><div class="section-heading"><div><span class="eyebrow">YOUR ACCOUNT</span><h2>My profile</h2></div></div><div class="profile-card"><div class="avatar" id="profileAvatar">C</div><div><h3 id="profileName">ClickFix user</h3><p id="profileEmail">customer@example.com</p><span class="role-pill" id="profileRole">Customer</span></div><button class="outline-btn" id="logoutBtn">Log out</button></div><div class="profile-links"><button id="myBookingsBtn">My bookings <span>→</span></button><button id="settingsProfileBtn">Settings <span>→</span></button></div></section>
+      <section id="bookingsPage" class="section-block hidden"><div class="section-heading"><div><span class="eyebrow">YOUR ACTIVITY</span><h2>My bookings</h2></div></div><div id="bookingItems" class="empty-state">You haven't made any demo bookings yet.</div></section>
+      <section id="settingsPage" class="section-block hidden"><div class="section-heading"><div><span class="eyebrow">PREFERENCES</span><h2>Settings</h2></div></div><div class="settings-card"><label>Preferred area<input id="areaInput" placeholder="Enter city or area"></label><label>Notifications<select><option>On</option><option>Off</option></select></label><button class="primary-btn" id="saveSettings">Save settings</button></div></section>
+    </main>
+    <nav class="bottom-nav"><button class="nav-item active" data-page="home"><span>⌂</span><small>Home</small></button><button class="nav-item" data-page="search"><span>⌕</span><small>Search</small></button><button class="nav-item cart-nav" data-page="cart"><span>🛒<i id="cartCount">0</i></span><small>Cart</small></button><button class="nav-item" data-page="profile"><span>♙</span><small>Profile</small></button></nav>
+  </div>
+  <div id="bookingModal" class="modal hidden"><div class="modal-card"><button class="modal-close" id="closeModal">×</button><span class="eyebrow">BOOK A SERVICE</span><h2 id="modalTitle">Book a service</h2><p>Tell us a little about what you need.</p><form id="bookingForm"><label>Service address<input id="bookingAddress" required placeholder="House no., street, area"></label><label>Preferred date<input id="bookingDate" type="date" required></label><label>Describe the issue<textarea id="bookingDescription" rows="3" placeholder="Optional details"></textarea></label><button class="primary-btn full" type="submit">Add to cart</button></form></div></div>
+  <div id="toast" class="toast"></div>
   <script src="script.js"></script>
-</body>
-</html>
+</body></html>

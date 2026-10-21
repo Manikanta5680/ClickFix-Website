@@ -1,195 +1,27 @@
-const services = [
-  {id:"ac",name:"AC repair & service",category:"Appliances",icon:"❄️",tag:"Popular",price:"₹299 onwards",desc:"Cooling issues, servicing, installation and maintenance.",color:"#e9f3ff"},
-  {id:"electrician",name:"Electrician",category:"Home",icon:"⚡",tag:"Home essential",price:"₹149 onwards",desc:"Switches, wiring, lights, fans and electrical faults.",color:"#fff2d9"},
-  {id:"plumbing",name:"Plumbing",category:"Home",icon:"🚿",tag:"Home essential",price:"₹149 onwards",desc:"Leaking taps, blocked drains, pipes and bathroom fittings.",color:"#e8f6f5"},
-  {id:"fridge",name:"Fridge repair",category:"Appliances",icon:"🧊",tag:"Appliances",price:"₹249 onwards",desc:"Cooling problems, unusual noise and refrigerator servicing.",color:"#e9f3ff"},
-  {id:"washing",name:"Washing machine",category:"Appliances",icon:"🫧",tag:"Appliances",price:"₹249 onwards",desc:"Repair, installation, drainage and spin-cycle issues.",color:"#f1edff"},
-  {id:"tv",name:"TV repair & setup",category:"Appliances",icon:"📺",tag:"Appliances",price:"₹249 onwards",desc:"Screen diagnosis, installation and connection setup.",color:"#f4eaff"},
-  {id:"fan",name:"Fan & appliance repair",category:"Appliances",icon:"🌀",tag:"Appliances",price:"₹149 onwards",desc:"Fans, mixer grinders, microwaves and small appliances.",color:"#e9f7ec"},
-  {id:"car",name:"Car repair & care",category:"Vehicle",icon:"🚗",tag:"Vehicle care",price:"₹399 onwards",desc:"General inspection, battery help and maintenance requests.",color:"#fff0e6"},
-  {id:"bike",name:"Bike & scooter repair",category:"Vehicle",icon:"🛵",tag:"Vehicle care",price:"₹199 onwards",desc:"Routine servicing, punctures and common repair requests.",color:"#fff0e6"},
-  {id:"cleaning",name:"Home deep cleaning",category:"Cleaning",icon:"🧹",tag:"Fresh spaces",price:"₹499 onwards",desc:"Kitchen, bathroom, full-home and move-in cleaning.",color:"#e9f7ec"},
-  {id:"pest",name:"Pest control",category:"Cleaning",icon:"🛡️",tag:"Home care",price:"₹399 onwards",desc:"Help with common household pests and preventive treatment.",color:"#f4f5df"},
-  {id:"ro",name:"RO & water purifier",category:"Appliances",icon:"💧",tag:"Appliances",price:"₹199 onwards",desc:"Filter changes, servicing, leakage and installation.",color:"#e8f6ff"},
-  {id:"carpenter",name:"Carpenter",category:"Home",icon:"🪚",tag:"Home",price:"₹199 onwards",desc:"Furniture assembly, door fixes, shelves and small repairs.",color:"#f8eee1"},
-  {id:"painting",name:"Painting & touch-ups",category:"Home",icon:"🖌️",tag:"Home",price:"Quote required",desc:"Wall touch-ups, repainting and minor paint jobs.",color:"#f4eaff"},
-  {id:"laundry",name:"Laundry & ironing",category:"Other",icon:"👕",tag:"Everyday help",price:"₹99 onwards",desc:"Laundry, ironing and clothing-care requests.",color:"#e9f3ff"},
-  {id:"salon",name:"Salon at home",category:"Other",icon:"✂️",tag:"Personal care",price:"₹199 onwards",desc:"Convenient grooming and personal-care appointments.",color:"#fcecf2"},
-  {id:"packers",name:"Packers & movers",category:"Other",icon:"📦",tag:"Moving help",price:"Quote required",desc:"Packing, local shifting and moving assistance.",color:"#fff2d9"},
-  {id:"computer",name:"Laptop & computer",category:"Appliances",icon:"💻",tag:"Tech support",price:"₹299 onwards",desc:"Device troubleshooting, setup and common technical issues.",color:"#f1edff"},
-  {id:"water",name:"Water tank cleaning",category:"Cleaning",icon:"🪣",tag:"Home care",price:"₹499 onwards",desc:"Tank cleaning requests for household water storage.",color:"#e8f6ff"},
-  {id:"lock",name:"Locksmith",category:"Home",icon:"🔑",tag:"Home essential",price:"₹199 onwards",desc:"Lock repair, replacement and door-lock assistance.",color:"#f4f5df"}
-];
-
-const serviceGrid = document.getElementById("serviceGrid");
-const categoryFilters = document.getElementById("categoryFilters");
-const heroSearch = document.getElementById("heroSearch");
-const bookingModal = document.getElementById("bookingModal");
-const bookingForm = document.getElementById("bookingForm");
-const toast = document.getElementById("toast");
-let activeCategory = "All";
-let searchTerm = "";
-let selectedService = null;
-let toastTimer;
-
-function renderServices() {
-  const filtered = services.filter(service => {
-    const matchesCategory = activeCategory === "All" || service.category === activeCategory;
-    const haystack = `${service.name} ${service.category} ${service.desc} ${service.tag}`.toLowerCase();
-    return matchesCategory && haystack.includes(searchTerm.toLowerCase().trim());
-  });
-  document.getElementById("visibleCount").textContent = filtered.length;
-  serviceGrid.innerHTML = filtered.map(service => `
-    <article class="service-card">
-      <div class="service-card-top">
-        <span class="service-icon" style="--icon-bg:${service.color}">${service.icon}</span>
-        <span class="service-tag">${service.tag}</span>
-      </div>
-      <h3>${escapeHTML(service.name)}</h3>
-      <p>${escapeHTML(service.desc)}</p>
-      <div class="service-card-bottom">
-        <span class="service-price">Starting at<strong>${escapeHTML(service.price)}</strong></span>
-        <button class="add-service" type="button" data-book="${service.id}" aria-label="Book ${escapeHTML(service.name)}">Book +</button>
-      </div>
-    </article>`).join("");
-  document.getElementById("noResults").classList.toggle("hidden", filtered.length > 0);
-  serviceGrid.classList.toggle("hidden", filtered.length === 0);
-  document.getElementById("showMoreBtn").textContent = activeCategory === "All" && !searchTerm ? "Explore all services ↓" : "Clear filters ×";
-}
-function escapeHTML(value) {
-  return String(value).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
-}
-function setCategory(category) {
-  activeCategory = category;
-  categoryFilters.querySelectorAll(".category-chip").forEach(button => button.classList.toggle("active", button.dataset.category === category));
-  renderServices();
-}
-function showToast(message) {
-  toast.textContent = message;
-  toast.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove("show"), 3000);
-}
-function openBooking(service) {
-  selectedService = service;
-  document.getElementById("selectedServiceName").textContent = service.name;
-  document.getElementById("selectedServicePrice").textContent = `Indicative price: ${service.price}`;
-  document.querySelector("#selectedServiceBox > span").textContent = service.icon;
-  const dateInput = document.getElementById("serviceDate");
-  const today = new Date();
-  const localToday = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().split("T")[0];
-  dateInput.min = localToday;
-  dateInput.value = localToday;
-  bookingModal.classList.remove("hidden");
-  document.body.style.overflow = "hidden";
-  setTimeout(() => document.getElementById("customerName").focus(), 100);
-}
-function closeBooking() {
-  bookingModal.classList.add("hidden");
-  document.body.style.overflow = "";
-}
-function getBookings() {
-  try { return JSON.parse(localStorage.getItem("clickfixBookings") || "[]"); }
-  catch { return []; }
-}
-function saveBookings(bookings) {
-  try { localStorage.setItem("clickfixBookings", JSON.stringify(bookings)); return true; }
-  catch { showToast("Could not save in this browser. Please try again."); return false; }
-}
-function updateBookingCount() {
-  document.getElementById("bookingCount").textContent = getBookings().length;
-}
-function showBookings() {
-  const bookings = getBookings();
-  const modal = document.querySelector(".modal");
-  const original = modal.innerHTML;
-  modal.innerHTML = `<button class="modal-close" id="closeBookings" aria-label="Close bookings">×</button>
-    <div class="modal-kicker">YOUR SERVICE REQUESTS</div><h2>My bookings</h2>
-    <p class="modal-subtitle">Requests saved on this device in this demo.</p>
-    ${bookings.length ? `<div class="booking-list">${bookings.slice().reverse().map(b => `<article class="booking-item"><strong>${escapeHTML(b.service)}</strong><small>Request ID: ${escapeHTML(b.id)}<br>${escapeHTML(b.date)} · ${escapeHTML(b.time)}<br>${escapeHTML(b.address)}<br>Contact: ${escapeHTML(b.phone)}</small><span class="booking-status">Demo request saved</span></article>`).join("")}</div>` : `<div class="no-results"><span>▤</span><h3>No bookings yet</h3><p>Your service requests will appear here.</p></div>`}
-    <button class="button button-dark full-width" id="backToServices" style="margin-top:20px">Browse services <span>→</span></button>`;
-  bookingModal.classList.remove("hidden");
-  document.body.style.overflow = "hidden";
-  document.getElementById("closeBookings").addEventListener("click", () => { modal.innerHTML = original; wireModalClose(); closeBooking(); });
-  document.getElementById("backToServices").addEventListener("click", () => { modal.innerHTML = original; wireModalClose(); closeBooking(); document.getElementById("services").scrollIntoView({behavior:"smooth"}); });
-}
-function wireModalClose() {
-  const close = document.getElementById("closeModal");
-  if (close) close.addEventListener("click", closeBooking);
-}
-categoryFilters.addEventListener("click", event => {
-  const button = event.target.closest("[data-category]");
-  if (button) setCategory(button.dataset.category);
-});
-serviceGrid.addEventListener("click", event => {
-  const button = event.target.closest("[data-book]");
-  if (button) {
-    const service = services.find(item => item.id === button.dataset.book);
-    if (service) openBooking(service);
-  }
-});
-document.getElementById("searchForm").addEventListener("submit", event => {
-  event.preventDefault();
-  searchTerm = heroSearch.value;
-  setCategory("All");
-  document.getElementById("services").scrollIntoView({behavior:"smooth"});
-});
-heroSearch.addEventListener("input", () => {
-  if (!heroSearch.value.trim()) { searchTerm = ""; renderServices(); }
-});
-document.getElementById("showMoreBtn").addEventListener("click", () => {
-  if (activeCategory !== "All" || searchTerm) {
-    activeCategory = "All"; searchTerm = ""; heroSearch.value = "";
-    setCategory("All");
-  } else {
-    showToast("You're viewing all available service categories.");
-    serviceGrid.scrollIntoView({behavior:"smooth", block:"start"});
-  }
-});
-document.getElementById("showAllBtn").addEventListener("click", () => {
-  activeCategory = "All"; searchTerm = ""; heroSearch.value = ""; setCategory("All");
-});
-document.getElementById("closeModal").addEventListener("click", closeBooking);
-bookingModal.addEventListener("click", event => { if (event.target === bookingModal) closeBooking(); });
-document.addEventListener("keydown", event => { if (event.key === "Escape") closeBooking(); });
-bookingForm.addEventListener("submit", event => {
-  event.preventDefault();
-  if (!selectedService) return;
-  const data = new FormData(bookingForm);
-  const booking = {
-    id: "FX" + Date.now().toString().slice(-8),
-    service: selectedService.name,
-    name: data.get("customerName").trim(),
-    phone: data.get("customerPhone").trim(),
-    date: data.get("serviceDate"),
-    time: data.get("serviceTime"),
-    address: data.get("customerAddress").trim(),
-    notes: data.get("jobNotes").trim(),
-    createdAt: new Date().toISOString()
-  };
-  const bookings = getBookings();
-  bookings.push(booking);
-  if (!saveBookings(bookings)) return;
-  updateBookingCount();
-  bookingForm.reset();
-  closeBooking();
-  showToast(`Request ${booking.id} saved on this device. No provider has been notified.`);
-});
-document.getElementById("myBookingsBtn").addEventListener("click", showBookings);
-document.getElementById("mobileBookingsBtn").addEventListener("click", () => {
-  document.getElementById("mobileNav").classList.remove("open");
-  document.getElementById("menuToggle").setAttribute("aria-expanded", "false");
-  showBookings();
-});
-document.getElementById("menuToggle").addEventListener("click", () => {
-  const nav = document.getElementById("mobileNav");
-  const open = nav.classList.toggle("open");
-  document.getElementById("menuToggle").setAttribute("aria-expanded", String(open));
-});
-document.querySelectorAll("[data-jump]").forEach(link => link.addEventListener("click", () => {
-  const match = services.find(s => s.name.toLowerCase().includes(link.dataset.jump.toLowerCase()));
-  if (match) { searchTerm = match.name; heroSearch.value = match.name; setCategory("All"); }
-}));
-document.getElementById("year").textContent = new Date().getFullYear();
-updateBookingCount();
-renderServices();
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+let role='customer', mode='login', currentUser=null, cart=JSON.parse(localStorage.getItem('clickfixCart')||'[]'), bookings=JSON.parse(localStorage.getItem('clickfixBookings')||'[]');
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400)}
+function setMode(m){mode=m;$$('.mode').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));$('#authHeading h2').textContent=m==='login'?'Welcome back':(role==='worker'?'Join ClickFix as a professional':'Create your account');$('#authHeading p').textContent=m==='login'?'Sign in to continue to ClickFix.':(role==='worker'?'Register your skills and grow your work.':'Sign up to book trusted services.');$('#nameWrap').classList.toggle('hidden',m==='login');$('#phoneWrap').classList.toggle('hidden',m==='login');$('#skillWrap').classList.toggle('hidden',m==='login'||role!=='worker');$('#submitAuth').innerHTML=(m==='login'?'Login securely':'Create account')+' <span>→</span>'}
+$$('.mode').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+$$('.role-tab').forEach(b=>b.addEventListener('click',()=>{role=b.dataset.role;$$('.role-tab').forEach(x=>x.classList.toggle('active',x===b));setMode(mode)}));
+$('#authForm').addEventListener('submit',e=>{e.preventDefault();const email=$('#email').value.trim(), password=$('#password').value;if(password.length<6){toast('Use a password with at least 6 characters.');return}if(mode==='signup'&&!$('#fullName').value.trim()){toast('Please enter your name.');return}currentUser={name:mode==='signup'?$('#fullName').value.trim():(email.split('@')[0]||'ClickFix user'),email,role,skill:role==='worker'?$('#skill').value:''};localStorage.setItem('clickfixDemoUser',JSON.stringify(currentUser));showApp();toast(mode==='login'?'Welcome back!':'Demo account created!')});
+function showApp(){if(!currentUser)currentUser=JSON.parse(localStorage.getItem('clickfixDemoUser')||'null');if(!currentUser)return;$('#authScreen').classList.add('hidden');$('#appScreen').classList.remove('hidden');$('#welcomeTitle').textContent=currentUser.role==='worker'?'Ready for your next job?':'What can we fix for you?';$('#profileName').textContent=currentUser.name;$('#profileEmail').textContent=currentUser.email;$('#profileRole').textContent=currentUser.role==='worker'?'Service professional':'Customer';$('#profileAvatar').textContent=currentUser.name.charAt(0).toUpperCase();renderCart();renderBookings();showPage('home')}
+function showPage(page){['cartPage','profilePage','bookingsPage','settingsPage'].forEach(id=>$('#'+id).classList.add('hidden'));$('#services').classList.remove('hidden');$('.why-block').classList.remove('hidden');if(page==='cart'){$('#cartPage').classList.remove('hidden');$('#services').classList.add('hidden');$('.why-block').classList.add('hidden')}else if(page==='profile'){$('#profilePage').classList.remove('hidden');$('#services').classList.add('hidden');$('.why-block').classList.add('hidden')}else if(page==='bookings'){$('#bookingsPage').classList.remove('hidden');$('#services').classList.add('hidden');$('.why-block').classList.add('hidden')}else if(page==='settings'){$('#settingsPage').classList.remove('hidden');$('#services').classList.add('hidden');$('.why-block').classList.add('hidden')}else if(page==='search'){$('#serviceSearch').focus();$('#services').classList.remove('hidden')}$$('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.page===page));window.scrollTo({top:0,behavior:'smooth'})}
+$$('.nav-item').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+$('#settingsBtn').addEventListener('click',()=>showPage('settings'));$('#settingsProfileBtn').addEventListener('click',()=>showPage('settings'));$('#myBookingsBtn').addEventListener('click',()=>showPage('bookings'));
+$('#logoutBtn').addEventListener('click',()=>{localStorage.removeItem('clickfixDemoUser');currentUser=null;$('#appScreen').classList.add('hidden');$('#authScreen').classList.remove('hidden');$('#authForm').reset();setMode('login');toast('You have logged out.')});
+function filterServices(){const q=$('#serviceSearch').value.toLowerCase().trim();let shown=0;$$('.category-card').forEach(c=>{const match=c.dataset.service.toLowerCase().includes(q)||c.innerText.toLowerCase().includes(q);c.classList.toggle('hidden',!match);if(match)shown++});if(q&&shown===0)toast('No matching service. Try another search.')}
+$('#serviceSearch').addEventListener('input',filterServices);$('#searchBtn').addEventListener('click',()=>{showPage('search');filterServices()});$$('[data-scroll="services"]').forEach(b=>b.addEventListener('click',()=>$('#services').scrollIntoView({behavior:'smooth'})));
+$('#viewAllBtn').addEventListener('click',()=>{const cards=$$('.category-card');cards.forEach(c=>c.classList.remove('hidden'));$('#serviceSearch').value='';toast('Showing all available demo services.')});
+let selectedService='';
+$$('.category-card').forEach(c=>c.addEventListener('click',()=>{selectedService=c.dataset.service;$('#modalTitle').textContent='Book '+selectedService;$('#bookingModal').classList.remove('hidden');$('#bookingDate').min=new Date().toISOString().slice(0,10)}));
+$('#closeModal').addEventListener('click',()=>$('#bookingModal').classList.add('hidden'));$('#bookingModal').addEventListener('click',e=>{if(e.target.id==='bookingModal')$('#bookingModal').classList.add('hidden')});
+$('#bookingForm').addEventListener('submit',e=>{e.preventDefault();const item={id:Date.now(),service:selectedService,address:$('#bookingAddress').value,date:$('#bookingDate').value,description:$('#bookingDescription').value};cart.push(item);localStorage.setItem('clickfixCart',JSON.stringify(cart));renderCart();$('#bookingModal').classList.add('hidden');$('#bookingForm').reset();toast('Service added to your cart.')});
+function renderCart(){ $('#cartCount').textContent=cart.length;const el=$('#cartItems');if(!cart.length){el.className='empty-state';el.textContent='Your cart is empty. Add a service to get started.';return}el.className='cart-list';el.innerHTML=cart.map(i=>`<div class="profile-card" style="margin-bottom:10px"><div class="avatar">🔧</div><div style="flex:1"><h3>${escapeHtml(i.service)}</h3><p>${escapeHtml(i.date)} · ${escapeHtml(i.address)}</p></div><button class="outline-btn" data-remove="${i.id}">Remove</button></div>`).join('')+'<button class="primary-btn full" id="confirmBooking">Confirm demo booking</button>';$$('[data-remove]').forEach(b=>b.addEventListener('click',()=>{cart=cart.filter(i=>i.id!==Number(b.dataset.remove));localStorage.setItem('clickfixCart',JSON.stringify(cart));renderCart()}));$('#confirmBooking').addEventListener('click',()=>{bookings=bookings.concat(cart);localStorage.setItem('clickfixBookings',JSON.stringify(bookings));cart=[];localStorage.setItem('clickfixCart','[]');renderCart();renderBookings();toast('Demo booking saved in this browser.');showPage('bookings')})}
+function renderBookings(){const el=$('#bookingItems');if(!bookings.length){el.className='empty-state';el.textContent='You haven’t made any demo bookings yet.';return}el.className='cart-list';el.innerHTML=bookings.map(i=>`<div class="profile-card" style="margin-bottom:10px"><div class="avatar">✓</div><div><h3>${escapeHtml(i.service)}</h3><p>${escapeHtml(i.date)} · ${escapeHtml(i.address)}</p><span class="role-pill">Demo booking</span></div></div>`).join('')}
+function escapeHtml(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+$('#locationBtn').addEventListener('click',()=>{const area=prompt('Enter your city or service area:');if(area){$('#locationBtn').innerHTML=escapeHtml(area)+' <span>⌄</span>';$('#areaInput').value=area}});
+$('#saveSettings').addEventListener('click',()=>{const area=$('#areaInput').value.trim();if(area)$('#locationBtn').innerHTML=escapeHtml(area)+' <span>⌄</span>';toast('Settings saved on this device.')});
+$$('[data-info]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();toast(a.dataset.info+' page will be added when the backend is connected.')}));
+// Existing demo session can be resumed on this device. Use Logout to return to the entry page.
+try{currentUser=JSON.parse(localStorage.getItem('clickfixDemoUser')||'null');if(currentUser)showApp()}catch(e){}

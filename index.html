@@ -22,7 +22,7 @@
           <label>Email address<input id="email" type="email" placeholder="you@example.com" required></label>
           <label id="phoneWrap" class="hidden">Mobile number<input id="phone" type="tel" placeholder="10-digit mobile number"></label>
           <label>Password<input id="password" type="password" placeholder="At least 6 characters" minlength="6" required></label>
-          <label id="skillWrap" class="hidden">Your main skill<select id="skill"><option>Electrician</option><option>Plumber</option><option>AC technician</option><option>Appliance repair</option><option>Cleaning professional</option><option>Carpenter</option><option>Other</option></select></label>
+          <label id="skillWrap" class="hidden">Your main skill<select id="skill"><option>Electrician</option><option>Plumber</option><option>AC technician</option><option>Appliance repair technician</option><option>Car mechanic</option><option>Bike mechanic</option><option>Tyre / puncture technician</option><option>Roadside assistance</option><option>Cleaning professional</option><option>Carpenter</option><option>Painter</option><option>Pest control technician</option><option>RO / water purifier technician</option><option>Washing machine technician</option><option>Refrigerator technician</option><option>TV / electronics technician</option><option>Locksmith</option><option>Mason</option><option>Gardener</option><option>Other</option></select></label>
           <button class="primary-btn full" type="submit" id="submitAuth">Login securely <span>→</span></button>
         </form>
         <p class="demo-note">Demo experience: use any valid email and a password with 6+ characters.</p>
@@ -42,14 +42,35 @@
       <section class="hero-banner"><div><span class="banner-label">QUICK. SIMPLE. RELIABLE.</span><h2>Your home deserves<br>the best care.</h2><p>Professional help, just a few taps away.</p><button class="light-btn" data-scroll="services">Explore services <span>→</span></button></div><div class="banner-illustration">🏡<span>✨</span></div></section>
       <section id="services" class="section-block"><div class="section-heading"><div><span class="eyebrow">WHAT DO YOU NEED?</span><h2>Popular services</h2></div><button class="text-btn" id="viewAllBtn">View all <span>→</span></button></div>
         <div class="category-grid" id="categoryGrid">
-          <button class="category-card" data-service="AC Repair"><span class="category-icon lavender">❄️</span><b>AC repair</b><small>Cooling & service</small></button>
-          <button class="category-card" data-service="Electrician"><span class="category-icon yellow">💡</span><b>Electrician</b><small>Wiring & fittings</small></button>
-          <button class="category-card" data-service="Plumbing"><span class="category-icon blue">🚿</span><b>Plumbing</b><small>Leaks & repairs</small></button>
-          <button class="category-card" data-service="Appliance Repair"><span class="category-icon pink">🧺</span><b>Appliance repair</b><small>Fridge, TV & more</small></button>
-          <button class="category-card" data-service="Cleaning"><span class="category-icon green">🧹</span><b>Home cleaning</b><small>Freshen your space</small></button>
-          <button class="category-card" data-service="Carpentry"><span class="category-icon orange">🪚</span><b>Carpentry</b><small>Furniture & fittings</small></button>
-          <button class="category-card" data-service="Vehicle Repair"><span class="category-icon blue">🛵</span><b>Vehicle repair</b><small>Quick roadside help</small></button>
-          <button class="category-card" data-service="Painting"><span class="category-icon pink">🖌️</span><b>Painting</b><small>Walls & touch-ups</small></button>
+          <button class="category-card" data-service="AC Repair"><span class="category-icon lavender">❄️</span><b>AC repair & service</b><small>Installation, gas refill, cooling</small></button>
+          <button class="category-card" data-service="Electrician"><span class="category-icon yellow">💡</span><b>Electrician</b><small>Wiring, fans, lights, switches</small></button>
+          <button class="category-card" data-service="Plumbing"><span class="category-icon blue">🚿</span><b>Plumbing</b><small>Leaks, taps, pipes, drainage</small></button>
+          <button class="category-card" data-service="Car Repair & Mechanic"><span class="category-icon orange">🚗</span><b>Car repair & mechanic</b><small>Engine, brakes, servicing</small></button>
+          <button class="category-card" data-service="Bike & Scooter Repair"><span class="category-icon blue">🏍️</span><b>Bike & scooter repair</b><small>Servicing and breakdowns</small></button>
+          <button class="category-card" data-service="Tyre & Puncture Repair"><span class="category-icon yellow">🛞</span><b>Tyre & puncture repair</b><small>Car and two-wheeler tyres</small></button>
+          <button class="category-card" data-service="Roadside Assistance"><span class="category-icon pink">🆘</span><b>Roadside assistance</b><small>Jump-start, towing, breakdown</small></button>
+          <button class="category-card" data-service="Battery Service"><span class="category-icon green">🔋</span><b>Car battery service</b><small>Battery check and replacement</small></button>
+          <button class="category-card" data-service="Refrigerator Repair"><span class="category-icon lavender">🧊</span><b>Refrigerator repair</b><small>Cooling and fridge problems</small></button>
+          <button class="category-card" data-service="Washing Machine Repair"><span class="category-icon blue">🧺</span><b>Washing machine repair</b><small>Washer and dryer service</small></button>
+          <button class="category-card" data-service="TV & Electronics Repair"><span class="category-icon pink">📺</span><b>TV & electronics repair</b><small>TV, speakers and devices</small></button>
+          <button class="category-card" data-service="Microwave & Geyser Repair"><span class="category-icon orange">♨️</span><b>Microwave & geyser</b><small>Heating appliance repairs</small></button>
+          <button class="category-card" data-service="RO Water Purifier Service"><span class="category-icon blue">💧</span><b>RO / water purifier</b><small>Filter change and servicing</small></button>
+          <button class="category-card" data-service="Inverter & UPS Repair"><span class="category-icon yellow">🔌</span><b>Inverter & UPS repair</b><small>Backup power solutions</small></button>
+          <button class="category-card" data-service="Home Cleaning"><span class="category-icon green">🧹</span><b>Home cleaning</b><small>Regular and deep cleaning</small></button>
+          <button class="category-card" data-service="Bathroom Cleaning"><span class="category-icon blue">🧽</span><b>Bathroom cleaning</b><small>Tiles, fittings and stains</small></button>
+          <button class="category-card" data-service="Sofa & Carpet Cleaning"><span class="category-icon pink">🛋️</span><b>Sofa & carpet cleaning</b><small>Upholstery and carpet care</small></button>
+          <button class="category-card" data-service="Pest Control"><span class="category-icon green">🪳</span><b>Pest control</b><small>Common household pests</small></button>
+          <button class="category-card" data-service="Carpentry"><span class="category-icon orange">🪚</span><b>Carpentry</b><small>Doors, beds, shelves, furniture</small></button>
+          <button class="category-card" data-service="Painting"><span class="category-icon pink">🖌️</span><b>Painting</b><small>Interior, exterior and touch-ups</small></button>
+          <button class="category-card" data-service="Masonry & Tile Work"><span class="category-icon orange">🧱</span><b>Masonry & tile work</b><small>Repairs, tiles and plaster</small></button>
+          <button class="category-card" data-service="Waterproofing"><span class="category-icon blue">🏠</span><b>Waterproofing</b><small>Terrace and wall leakage</small></button>
+          <button class="category-card" data-service="Locksmith"><span class="category-icon yellow">🔑</span><b>Locksmith</b><small>Lock repair and replacement</small></button>
+          <button class="category-card" data-service="CCTV & Security Installation"><span class="category-icon lavender">📹</span><b>CCTV & security</b><small>Camera and doorbell setup</small></button>
+          <button class="category-card" data-service="Internet & Wi-Fi Setup"><span class="category-icon blue">📶</span><b>Internet & Wi-Fi setup</b><small>Router setup and troubleshooting</small></button>
+          <button class="category-card" data-service="Packers & Movers"><span class="category-icon orange">📦</span><b>Packers & movers</b><small>Home shifting assistance</small></button>
+          <button class="category-card" data-service="Gardening & Lawn Care"><span class="category-icon green">🪴</span><b>Gardening & lawn care</b><small>Plants, pruning and garden care</small></button>
+          <button class="category-card" data-service="Laundry & Ironing"><span class="category-icon pink">👔</span><b>Laundry & ironing</b><small>Clothes washing and ironing</small></button>
+          <button class="category-card" data-service="Water Tank Cleaning"><span class="category-icon blue">🪣</span><b>Water tank cleaning</b><small>Overhead and underground tanks</small></button>
         </div>
       </section>
       <section class="section-block why-block"><div><span class="eyebrow">THE CLICKFIX PROMISE</span><h2>Help you can count on.</h2><p>Find the right service for your home and everyday life.</p></div><div class="promise-list"><div><span>✓</span><div><b>Simple booking</b><small>Request a service in minutes</small></div></div><div><span>♧</span><div><b>Local professionals</b><small>Find help for your needs</small></div></div><div><span>♡</span><div><b>Support when needed</b><small>Keep your service details together</small></div></div></div></section>

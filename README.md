@@ -17,4 +17,3 @@
 
 ## Important demo limitation
 This is a front-end prototype. Login/signup are not secure authentication, and user/cart/booking data is saved only in the current browser using localStorage. Do not use real passwords or sensitive customer data. A production website needs a secure authentication provider/backend, database, server-side authorization, and a worker verification/admin process.
-Latest update: ClickFix login and registration page.
